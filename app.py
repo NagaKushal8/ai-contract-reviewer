@@ -620,6 +620,39 @@ with gr.Blocks(title="Kalb Contract Review Tool") as demo:
 </div>
     """)
 
+    # ── Disclaimer / courtesy notice ──────────────────────────────────────
+    gr.HTML("""
+<div style="
+    background: #FFFBEB;
+    border: 1px solid #FCD34D;
+    border-left: 5px solid #F59E0B;
+    border-radius: 8px;
+    padding: 14px 18px;
+    margin-bottom: 14px;
+">
+    <div style="display:flex; align-items:flex-start; gap:10px;">
+        <span style="font-size:1.3rem; line-height:1.2;">🙏</span>
+        <div>
+            <p style="margin:0 0 6px 0; font-size:0.88rem; font-weight:700; color:#92400E;">
+                A kind note from the developer
+            </p>
+            <p style="margin:0 0 8px 0; font-size:0.84rem; color:#78350F; line-height:1.6;">
+                This demo is running on <strong>personal API keys</strong> (OpenAI &amp; Mistral) shared purely to let you experience the tool.
+                I'd genuinely appreciate it if you kept usage light &mdash; a contract or two is more than enough to see what it can do. 😊
+            </p>
+            <p style="margin:0 0 8px 0; font-size:0.84rem; color:#78350F; line-height:1.6;">
+                <strong>If the analysis fails or returns an error</strong>, it is most likely due to API rate limits or quota being reached &mdash;
+                not a bug in the application itself.
+            </p>
+            <p style="margin:0; font-size:0.84rem; color:#78350F; line-height:1.6;">
+                📽️ &nbsp;In that case, please refer to the <strong>demo video included with the submission</strong> &mdash;
+                it walks through a full end-to-end analysis so you can see exactly how everything works without needing to run it live.
+            </p>
+        </div>
+    </div>
+</div>
+    """)
+
     # ── Upload row ────────────────────────────────────────────────────────
     with gr.Row():
         pdf_input = gr.File(
