@@ -50,7 +50,7 @@ def run_test():
     print(f"  LD findings found     : {len(results['ld_findings'])}")
     print(f"  Total issues          : {results['total_issues']}")
 
-    # Sample issue from each agent
+    # ── Sample issue from each agent (one block per agent) ───────────────
     for agent_key, label in [
         ("nrs_issues",       "NRS"),
         ("owner_issues",     "OWNER"),
@@ -64,37 +64,33 @@ def run_test():
             print(f"    Section   : {sample.get('section_id')}")
             print(f"    Page      : {sample.get('page_number')}")
             if agent_key == "ld_findings":
-                print(
-                    f"    Summary   : "
-                    f"{sample.get('ld_summary', '')[:100]}"
-                )
+                print(f"    Summary   : {sample.get('ld_summary', '')[:100]}")
                 print(f"    Rate      : {sample.get('rate', 'n/a')}")
                 print(f"    Trigger   : {sample.get('trigger', 'n/a')}")
             else:
                 print(f"    Severity  : {sample.get('severity')}")
-                print(
-                    f"    Summary   : "
-                    f"{sample.get('summary', '')[:100]}"
-                )
+                print(f"    Summary   : {sample.get('summary', '')[:100]}")
                 print(f"    Confidence: {sample.get('confidence')}")
+    # ── end per-agent loop ─────────────────────────────────────────────────
 
-    # Executive summary
+    # ── Executive summary (printed once, after all agents) ─────────────────
     summary = results.get("executive_summary", {})
+
     concerns = summary.get("top_5_concerns", [])
     if concerns:
         print(f"\n  --- Executive Summary: Top {len(concerns)} Concerns ---")
         for c in concerns:
-            urgency = c.get("urgency", "")
-            concern = c.get("concern", "")[:80]
-            print(f"    {c['rank']}. [{urgency}] {concern}")
+            print(f"    {c['rank']}. [{c.get('urgency', '')}] "
+                  f"{c.get('concern', '')[:80]}")
 
     markup = summary.get("recommended_markup", [])
     if markup:
         print(f"\n  --- Recommended Markup ({len(markup)} items) ---")
         for m in markup:
-            action = m.get("action", "")[:80]
-            ref = m.get("section_reference", "")
-            print(f"    {m['revision_number']}. {action}  [{ref}]")
+            print(f"    {m['revision_number']}. "
+                  f"{m.get('action', '')[:80]}  "
+                  f"[{m.get('section_reference', '')}]")
+    # ── end executive summary ──────────────────────────────────────────────
 
     # Save full results to disk
     output_path = "test/phase2_results.json"

@@ -68,13 +68,15 @@ def safe_parse_json(raw_text: str) -> list:
 def validate_issue(issue: dict, agent_name: str) -> bool:
     """Validate that an issue dict contains all required fields.
 
-    The required fields differ by agent because the LD agent uses a
-    different output schema (``ld_summary`` instead of ``summary`` etc.).
+    Each agent returns a different output schema, so required fields are
+    determined by agent_name:
+    - "ld"        : LD extraction schema  (ld_summary, rate, etc.)
+    - "insurance" : Insurance gap schema  (contract_requirement, gap_exists, etc.)
+    - all others  : Standard risk schema  (severity, why_problem, proposed_fix)
 
     Args:
         issue: The issue dict returned by an agent.
-        agent_name: Short agent identifier — "ld" triggers the LD schema,
-                    any other value uses the standard schema.
+        agent_name: Short agent identifier — "ld", "insurance", "nrs", "owner".
 
     Returns:
         True if all required fields are present, False otherwise.
@@ -82,7 +84,16 @@ def validate_issue(issue: dict, agent_name: str) -> bool:
     """
     if agent_name == "ld":
         required = ["page_number", "section_id", "ld_summary"]
+
+    elif agent_name == "insurance":
+        required = [
+            "page_number", "section_id", "summary",
+            "contract_requirement", "kalb_coverage",
+            "gap_exists", "confidence",
+        ]
+
     else:
+        # nrs and owner agents share the standard risk schema
         required = [
             "page_number", "section_id", "severity",
             "summary", "why_problem", "proposed_fix", "confidence",

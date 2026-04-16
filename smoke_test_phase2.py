@@ -34,7 +34,22 @@ good_standard = {
 }
 assert validate_issue(good_standard, "nrs") is True
 assert validate_issue({"page_number": 1}, "nrs") is False
+
+# LD schema
 assert validate_issue({"page_number": 1, "section_id": "6.5", "ld_summary": "x"}, "ld") is True
+
+# Insurance schema — the fields that were previously causing 0 results
+good_insurance = {
+    "page_number": 33, "section_id": "11.2",
+    "summary": "Contract requires builders risk",
+    "contract_requirement": "$5M builders risk",
+    "kalb_coverage": "Not carried",
+    "gap_exists": True,
+    "confidence": "High",
+}
+assert validate_issue(good_insurance, "insurance") is True
+# Insurance issue must NOT be rejected for missing severity/why_problem/proposed_fix
+assert validate_issue({"page_number": 1, "section_id": "11.2"}, "insurance") is False
 print("validate_issue              : OK")
 
 # ── clean_issues ──────────────────────────────────────────────────────────
