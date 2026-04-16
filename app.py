@@ -623,7 +623,7 @@ with gr.Blocks(title="Kalb Contract Review Tool") as demo:
     # ── Disclaimer / courtesy notice ──────────────────────────────────────
     gr.HTML("""
 <p style="font-size:0.82rem; color:#6B7280; margin:0 0 12px 0; line-height:1.5;">
-    This demo runs on personal API keys provided as part of this submission — please limit usage to evaluation purposes. If analysis fails, it is likely due to API rate limits; the demo video included with the submission demonstrates a full end-to-end run.
+    This is running live — if anything does not load, it may be due to limited usage on a free account. The demo video included with the submission shows everything working perfectly.
 </p>
     """)
 
