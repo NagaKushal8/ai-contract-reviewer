@@ -582,6 +582,44 @@ with gr.Blocks(title="Kalb Contract Review Tool") as demo:
 </div>
     """)
 
+    # ── Models info bar ───────────────────────────────────────────────────
+    gr.HTML("""
+<div style="
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #F7F9FC;
+    border: 1px solid #D1D9E6;
+    border-radius: 8px;
+    padding: 10px 18px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+">
+    <span style="font-size:0.78rem; font-weight:700; color:#4A5568; text-transform:uppercase; letter-spacing:0.6px;">
+        AI Models
+    </span>
+    <span style="width:1px; height:16px; background:#D1D9E6; display:inline-block;"></span>
+    <span style="
+        display:inline-flex; align-items:center; gap:6px;
+        background:#EFF6FF; border:1px solid #BFDBFE;
+        border-radius:6px; padding:3px 10px;
+        font-size:0.82rem; font-weight:600; color:#1D4ED8;
+    ">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        GPT-4o &nbsp;<span style="font-weight:400;color:#6B7280;">· Analysis &amp; Filtering</span>
+    </span>
+    <span style="
+        display:inline-flex; align-items:center; gap:6px;
+        background:#F0FDF4; border:1px solid #BBF7D0;
+        border-radius:6px; padding:3px 10px;
+        font-size:0.82rem; font-weight:600; color:#15803D;
+    ">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 12h6M9 15h4"/></svg>
+        mistral-ocr-latest &nbsp;<span style="font-weight:400;color:#6B7280;">· OCR (scanned PDFs)</span>
+    </span>
+</div>
+    """)
+
     # ── Upload row ────────────────────────────────────────────────────────
     with gr.Row():
         pdf_input = gr.File(
