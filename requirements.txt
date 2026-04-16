@@ -1,0 +1,7 @@
+pdfplumber
+openai
+mistralai
+gradio
+reportlab
+python-dotenv
+Pillow
