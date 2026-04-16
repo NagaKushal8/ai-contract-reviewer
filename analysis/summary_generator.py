@@ -10,7 +10,7 @@ business concerns and a recommended markup list.
 
 import json
 
-from utils.prompts import EXECUTIVE_SUMMARY_PROMPT
+from utils.prompts import EXECUTIVE_SUMMARY_PROMPT, EXECUTIVE_SUMMARY_SYSTEM
 from utils.json_parser import safe_parse_json
 from utils.config import get_openai_client, ANALYSIS_MODEL
 
@@ -61,7 +61,10 @@ def run_summary_generator(analysis_results: dict) -> dict:
             model=ANALYSIS_MODEL,
             temperature=0,
             max_tokens=2000,
-            messages=[{"role": "user", "content": prompt}],
+            messages=[
+                {"role": "system", "content": EXECUTIVE_SUMMARY_SYSTEM},
+                {"role": "user",   "content": prompt},
+            ],
         )
 
         raw = response.choices[0].message.content

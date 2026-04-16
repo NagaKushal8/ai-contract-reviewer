@@ -8,7 +8,7 @@ Kalb Construction's current Certificate of Insurance and returns
 a list of any coverage gaps.
 """
 
-from utils.prompts import INSURANCE_AGENT_PROMPT
+from utils.prompts import INSURANCE_AGENT_PROMPT, INSURANCE_AGENT_SYSTEM
 from utils.json_parser import safe_parse_json, clean_issues
 from utils.config import get_openai_client, ANALYSIS_MODEL
 from analysis.nrs_agent import build_sections_text
@@ -68,7 +68,10 @@ def run_insurance_agent(
             model=ANALYSIS_MODEL,
             temperature=0,
             max_tokens=4000,
-            messages=[{"role": "user", "content": prompt}],
+            messages=[
+                {"role": "system", "content": INSURANCE_AGENT_SYSTEM},
+                {"role": "user",   "content": prompt},
+            ],
         )
 
         raw = response.choices[0].message.content

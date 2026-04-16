@@ -10,7 +10,7 @@ high-risk section IDs so critical clauses are never skipped even
 if they appear to be boilerplate.
 """
 
-from utils.prompts import BOILERPLATE_FILTER_PROMPT
+from utils.prompts import BOILERPLATE_FILTER_PROMPT, BOILERPLATE_FILTER_SYSTEM
 from utils.json_parser import safe_parse_json
 from utils.config import get_openai_client, FILTER_MODEL
 
@@ -104,7 +104,10 @@ def run_boilerplate_filter(
             model=FILTER_MODEL,
             temperature=0,
             max_tokens=1000,
-            messages=[{"role": "user", "content": prompt}],
+            messages=[
+                {"role": "system", "content": BOILERPLATE_FILTER_SYSTEM},
+                {"role": "user",   "content": prompt},
+            ],
         )
 
         raw = response.choices[0].message.content

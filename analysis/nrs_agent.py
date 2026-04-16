@@ -8,7 +8,7 @@ Nevada construction law (NRS 108, 624) and returns a list of
 flagged issues with severity, citation, and proposed fix.
 """
 
-from utils.prompts import NRS_AGENT_PROMPT
+from utils.prompts import NRS_AGENT_PROMPT, NRS_AGENT_SYSTEM
 from utils.json_parser import safe_parse_json, clean_issues
 from utils.config import get_openai_client, ANALYSIS_MODEL
 
@@ -134,7 +134,10 @@ def run_nrs_agent(
                 model=ANALYSIS_MODEL,
                 temperature=0,
                 max_tokens=4000,
-                messages=[{"role": "user", "content": prompt}],
+                messages=[
+                    {"role": "system", "content": NRS_AGENT_SYSTEM},
+                    {"role": "user",   "content": prompt},
+                ],
             )
 
             raw = response.choices[0].message.content

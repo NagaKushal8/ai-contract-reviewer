@@ -8,7 +8,7 @@ disproportionate risk for the contractor or unreasonably
 favour the owner.
 """
 
-from utils.prompts import OWNER_AGENT_PROMPT
+from utils.prompts import OWNER_AGENT_PROMPT, OWNER_AGENT_SYSTEM
 from utils.json_parser import safe_parse_json, clean_issues
 from utils.config import get_openai_client, ANALYSIS_MODEL
 from analysis.nrs_agent import build_sections_text, chunk_sections
@@ -78,7 +78,10 @@ def run_owner_agent(
                 model=ANALYSIS_MODEL,
                 temperature=0,
                 max_tokens=4000,
-                messages=[{"role": "user", "content": prompt}],
+                messages=[
+                    {"role": "system", "content": OWNER_AGENT_SYSTEM},
+                    {"role": "user",   "content": prompt},
+                ],
             )
 
             raw = response.choices[0].message.content

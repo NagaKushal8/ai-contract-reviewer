@@ -8,7 +8,7 @@ damages and extracts the rate, cap, trigger, grace period, and
 other key terms into structured records.
 """
 
-from utils.prompts import LD_AGENT_PROMPT
+from utils.prompts import LD_AGENT_PROMPT, LD_AGENT_SYSTEM
 from utils.json_parser import safe_parse_json, clean_issues
 from utils.config import get_openai_client, ANALYSIS_MODEL
 from analysis.nrs_agent import build_sections_text, chunk_sections
@@ -76,7 +76,10 @@ def run_ld_agent(
                 model=ANALYSIS_MODEL,
                 temperature=0,
                 max_tokens=4000,
-                messages=[{"role": "user", "content": prompt}],
+                messages=[
+                    {"role": "system", "content": LD_AGENT_SYSTEM},
+                    {"role": "user",   "content": prompt},
+                ],
             )
 
             raw = response.choices[0].message.content
