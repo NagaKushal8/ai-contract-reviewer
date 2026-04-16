@@ -1,7 +1,7 @@
 pdfplumber
 openai
 mistralai
-gradio
+gradio==6.12.0
 reportlab
 python-dotenv
 Pillow
