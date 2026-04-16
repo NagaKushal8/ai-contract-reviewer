@@ -568,7 +568,7 @@ with gr.Blocks(title="Kalb Contract Review Tool") as demo:
     ">Kalb Construction &nbsp;&bull;&nbsp; BLAK Development</p>
     <p style="
         color: #8fa3c0;
-        margin: 0;
+        margin: 0 0 10px 0;
         font-size: 0.85rem;
         line-height: 1.6;
     ">
@@ -578,6 +578,15 @@ with gr.Blocks(title="Kalb Contract Review Tool") as demo:
         and
         <span style="color:#C9952A; font-weight:600;">AIA A201 / A101</span>
         formats.
+    </p>
+    <p style="
+        color: #8fa3c0;
+        margin: 0;
+        font-size: 0.82rem;
+        font-weight: 700;
+        line-height: 1.5;
+    ">
+        This tool is submitted as part of a technical assessment for Kalb Construction and is not a commercial or legal product of any individual or organization.
     </p>
 </div>
     """)
