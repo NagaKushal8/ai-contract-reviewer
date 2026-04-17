@@ -631,11 +631,8 @@ with gr.Blocks(title="Kalb Contract Review Tool") as demo:
 
     # ── Disclaimer / courtesy notice ──────────────────────────────────────
     gr.HTML("""
-<p style="font-size:0.82rem; color:#6B7280; margin:0 0 4px 0; line-height:1.5;">
+<p style="font-size:0.82rem; color:#6B7280; margin:0 0 12px 0; line-height:1.5;">
     This is running live — if anything does not load, it may be due to limited usage on a free account. The demo video included with the submission shows everything working perfectly.
-</p>
-<p style="font-size:0.82rem; color:#6B7280; margin:0 0 12px 0; line-height:1.5; font-weight:700;">
-    This tool is submitted as part of a technical assessment for Kalb Construction and is not a commercial or legal product of any individual or organization.
 </p>
     """)
 
