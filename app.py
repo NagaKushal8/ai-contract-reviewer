@@ -560,13 +560,6 @@ with gr.Blocks(title="Kalb Contract Review Tool") as demo:
         line-height: 1.2;
     ">Contract Review Tool</h1>
     <p style="
-        color: #e8edf5;
-        margin: 0 0 14px 0;
-        font-size: 0.95rem;
-        font-weight: 500;
-        opacity: 0.85;
-    ">Kalb Construction &nbsp;&bull;&nbsp; BLAK Development</p>
-    <p style="
         color: #8fa3c0;
         margin: 0 0 10px 0;
         font-size: 0.85rem;
