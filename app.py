@@ -28,18 +28,18 @@ from report.pdf_builder import build_pdf
 # ---------------------------------------------------------------------------
 # Colour tokens — match pdf_builder.py brand palette
 # ---------------------------------------------------------------------------
-_NAVY       = "#1B2A4A"
-_GOLD       = "#C9952A"
-_RED        = "#B91C1C"
-_RED_BG     = "#FEF2F2"
-_AMBER_BG   = "#FFFBEB"
+_NAVY = "#1B2A4A"
+_GOLD = "#C9952A"
+_RED = "#B91C1C"
+_RED_BG = "#FEF2F2"
+_AMBER_BG = "#FFFBEB"
 _AMBER_TEXT = "#92400E"
-_GREEN      = "#1A6B3C"
-_GREEN_BG   = "#F0FAF4"
-_LIGHT      = "#F7F9FC"
-_SLATE      = "#4A5568"
-_BORDER     = "#D1D9E6"
-_WHITE      = "#FFFFFF"
+_GREEN = "#1A6B3C"
+_GREEN_BG = "#F0FAF4"
+_LIGHT = "#F7F9FC"
+_SLATE = "#4A5568"
+_BORDER = "#D1D9E6"
+_WHITE = "#FFFFFF"
 
 PROGRESS_STEPS = [
     "Extracting contract text...",
@@ -58,11 +58,12 @@ PROGRESS_STEPS = [
 # HTML builder helpers
 # ---------------------------------------------------------------------------
 
+
 def _badge(text: str, bg: str, color: str = _WHITE) -> str:
     """Return an inline-styled HTML badge span."""
     return (
         f'<span style="background:{bg};color:{color};'
-        f'padding:2px 8px;border-radius:4px;font-size:12px;'
+        f"padding:2px 8px;border-radius:4px;font-size:12px;"
         f'font-weight:600;white-space:nowrap">{text}</span>'
     )
 
@@ -79,13 +80,13 @@ def build_exec_summary_html(results: dict) -> str:
     Returns:
         HTML string ready for gr.HTML().
     """
-    summary    = results.get("executive_summary", {})
-    concerns   = summary.get("top_5_concerns", [])
-    total      = results.get("total_issues", 0)
-    nrs_count  = len(results.get("nrs_issues", []))
-    own_count  = len(results.get("owner_issues", []))
-    ins_count  = len(results.get("insurance_issues", []))
-    ld_count   = len(results.get("ld_findings", []))
+    summary = results.get("executive_summary", {})
+    concerns = summary.get("top_5_concerns", [])
+    total = results.get("total_issues", 0)
+    nrs_count = len(results.get("nrs_issues", []))
+    own_count = len(results.get("owner_issues", []))
+    ins_count = len(results.get("insurance_issues", []))
+    ld_count = len(results.get("ld_findings", []))
 
     # Stats bar
     stats = (
@@ -111,7 +112,7 @@ def build_exec_summary_html(results: dict) -> str:
         f'border-radius:8px;text-align:center">'
         f'<div style="font-size:22px;font-weight:700">{ld_count}</div>'
         f'<div style="font-size:12px">LD Findings</div></div>'
-        f'</div>'
+        f"</div>"
     )
 
     if not concerns:
@@ -127,11 +128,11 @@ def build_exec_summary_html(results: dict) -> str:
 
     cards = ""
     for c in concerns:
-        rank     = c.get("rank", "")
-        concern  = c.get("concern", "")
+        rank = c.get("rank", "")
+        concern = c.get("concern", "")
         category = c.get("category", "")
-        sec_ref  = c.get("section_reference", "")
-        urgency  = c.get("urgency", "")
+        sec_ref = c.get("section_reference", "")
+        urgency = c.get("urgency", "")
 
         cards += (
             f'<div style="border:1px solid {_BORDER};border-radius:8px;'
@@ -141,12 +142,12 @@ def build_exec_summary_html(results: dict) -> str:
             f'min-width:28px">{rank}</div>'
             f'<div style="flex:1">'
             f'<p style="margin:0 0 8px;color:{_SLATE};font-size:14px">'
-            f'{concern}</p>'
+            f"{concern}</p>"
             f'<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">'
-            f'{urgency_badge(urgency)}'
+            f"{urgency_badge(urgency)}"
             f'<span style="color:{_SLATE};font-size:12px">'
-            f'{category} &nbsp;|&nbsp; § {sec_ref}</span>'
-            f'</div></div></div></div>'
+            f"{category} &nbsp;|&nbsp; § {sec_ref}</span>"
+            f"</div></div></div></div>"
         )
 
     return stats + cards
@@ -171,7 +172,7 @@ def build_issues_html(issues: list, agent: str) -> str:
         return (
             f'<div style="padding:16px;background:{_LIGHT};'
             f'border-radius:8px;color:{_SLATE};text-align:center">'
-            f'No issues identified.</div>'
+            f"No issues identified.</div>"
         )
 
     def sev_style(s: str) -> str:
@@ -194,35 +195,35 @@ def build_issues_html(issues: list, agent: str) -> str:
     )
 
     header = (
-        f'<tr>{th}Page</th>{th}Section</th>{th}Severity</th>'
-        f'{th}Summary</th>{th}Proposed Fix</th>{th}Confidence</th></tr>'
+        f"<tr>{th}Page</th>{th}Section</th>{th}Severity</th>"
+        f"{th}Summary</th>{th}Proposed Fix</th>{th}Confidence</th></tr>"
     )
 
     rows = ""
     for i, issue in enumerate(issues):
-        bg   = _LIGHT if i % 2 == 0 else _WHITE
-        sev  = issue.get("severity", "")
+        bg = _LIGHT if i % 2 == 0 else _WHITE
+        sev = issue.get("severity", "")
         conf = issue.get("confidence", "")
-        td   = f'style="padding:8px 10px;font-size:13px;vertical-align:top;background:{bg}"'
+        td = f'style="padding:8px 10px;font-size:13px;vertical-align:top;background:{bg}"'
         rows += (
-            f'<tr>'
-            f'<td {td}>{issue.get("page_number","")}</td>'
-            f'<td {td}>{issue.get("section_id","")}</td>'
+            f"<tr>"
+            f"<td {td}>{issue.get('page_number', '')}</td>"
+            f"<td {td}>{issue.get('section_id', '')}</td>"
             f'<td style="padding:8px 10px;{sev_style(sev)};vertical-align:top">'
-            f'{sev}</td>'
-            f'<td {td}>{issue.get("summary","")}</td>'
-            f'<td {td}>{issue.get("proposed_fix","")}</td>'
+            f"{sev}</td>"
+            f"<td {td}>{issue.get('summary', '')}</td>"
+            f"<td {td}>{issue.get('proposed_fix', '')}</td>"
             f'<td style="padding:8px 10px;{conf_style(conf)};vertical-align:top">'
-            f'{conf}</td>'
-            f'</tr>'
+            f"{conf}</td>"
+            f"</tr>"
         )
 
     return (
         f'<div style="overflow-x:auto">'
         f'<table style="width:100%;border-collapse:collapse;font-family:sans-serif">'
-        f'<thead>{header}</thead>'
-        f'<tbody>{rows}</tbody>'
-        f'</table></div>'
+        f"<thead>{header}</thead>"
+        f"<tbody>{rows}</tbody>"
+        f"</table></div>"
     )
 
 
@@ -245,7 +246,7 @@ def build_insurance_html(issues: list) -> str:
         return (
             f'<div style="padding:16px;background:{_GREEN_BG};'
             f'border-radius:8px;color:{_GREEN};text-align:center;font-weight:600">'
-            f'No insurance gaps identified. Coverage appears sufficient.</div>'
+            f"No insurance gaps identified. Coverage appears sufficient.</div>"
         )
 
     th = (
@@ -253,41 +254,41 @@ def build_insurance_html(issues: list) -> str:
         f'text-align:left;font-size:12px;white-space:nowrap">'
     )
     header = (
-        f'<tr>{th}Page</th>{th}Section</th>{th}Summary</th>'
-        f'{th}Contract Requirement</th>{th}Kalb Coverage</th>'
-        f'{th}Gap</th>{th}Confidence</th></tr>'
+        f"<tr>{th}Page</th>{th}Section</th>{th}Summary</th>"
+        f"{th}Contract Requirement</th>{th}Kalb Coverage</th>"
+        f"{th}Gap</th>{th}Confidence</th></tr>"
     )
 
     rows = ""
     for i, issue in enumerate(issues):
-        bg  = _LIGHT if i % 2 == 0 else _WHITE
+        bg = _LIGHT if i % 2 == 0 else _WHITE
         gap = issue.get("gap_exists", False)
         gap_cell = (
             f'<span style="color:{_RED};font-weight:700">YES</span>'
-            if gap else
-            f'<span style="color:{_GREEN};font-weight:700">NO</span>'
+            if gap
+            else f'<span style="color:{_GREEN};font-weight:700">NO</span>'
         )
         conf = issue.get("confidence", "")
-        td   = f'style="padding:8px 10px;font-size:13px;vertical-align:top;background:{bg}"'
+        td = f'style="padding:8px 10px;font-size:13px;vertical-align:top;background:{bg}"'
         rows += (
-            f'<tr>'
-            f'<td {td}>{issue.get("page_number","")}</td>'
-            f'<td {td}>{issue.get("section_id","")}</td>'
-            f'<td {td}>{issue.get("summary","")}</td>'
-            f'<td {td}>{issue.get("contract_requirement","")}</td>'
-            f'<td {td}>{issue.get("kalb_coverage","")}</td>'
+            f"<tr>"
+            f"<td {td}>{issue.get('page_number', '')}</td>"
+            f"<td {td}>{issue.get('section_id', '')}</td>"
+            f"<td {td}>{issue.get('summary', '')}</td>"
+            f"<td {td}>{issue.get('contract_requirement', '')}</td>"
+            f"<td {td}>{issue.get('kalb_coverage', '')}</td>"
             f'<td style="padding:8px 10px;text-align:center;vertical-align:top;background:{bg}">'
-            f'{gap_cell}</td>'
-            f'<td {td}>{conf}</td>'
-            f'</tr>'
+            f"{gap_cell}</td>"
+            f"<td {td}>{conf}</td>"
+            f"</tr>"
         )
 
     return (
         f'<div style="overflow-x:auto">'
         f'<table style="width:100%;border-collapse:collapse;font-family:sans-serif">'
-        f'<thead>{header}</thead>'
-        f'<tbody>{rows}</tbody>'
-        f'</table></div>'
+        f"<thead>{header}</thead>"
+        f"<tbody>{rows}</tbody>"
+        f"</table></div>"
     )
 
 
@@ -310,7 +311,7 @@ def build_ld_html(findings: list) -> str:
         return (
             f'<div style="padding:16px;background:{_LIGHT};'
             f'border-radius:8px;color:{_SLATE};text-align:center">'
-            f'No liquidated damages provisions found.</div>'
+            f"No liquidated damages provisions found.</div>"
         )
 
     th = (
@@ -318,14 +319,14 @@ def build_ld_html(findings: list) -> str:
         f'text-align:left;font-size:12px;white-space:nowrap">'
     )
     header = (
-        f'<tr>{th}Page</th>{th}Section</th>{th}Rate</th>'
-        f'{th}Trigger</th>{th}Grace Period</th>'
-        f'{th}Extensions</th>{th}Summary</th></tr>'
+        f"<tr>{th}Page</th>{th}Section</th>{th}Rate</th>"
+        f"{th}Trigger</th>{th}Grace Period</th>"
+        f"{th}Extensions</th>{th}Summary</th></tr>"
     )
 
     rows = ""
     for i, f in enumerate(findings):
-        bg   = _LIGHT if i % 2 == 0 else _WHITE
+        bg = _LIGHT if i % 2 == 0 else _WHITE
         rate = f.get("rate", "blank")
         rate_cell = (
             f'<span style="color:{_RED};font-weight:700">BLANK</span>'
@@ -334,26 +335,26 @@ def build_ld_html(findings: list) -> str:
         )
         ext = f.get("extensions_available")
         ext_str = "Yes" if ext is True else ("No" if ext is False else "—")
-        td  = f'style="padding:8px 10px;font-size:13px;vertical-align:top;background:{bg}"'
+        td = f'style="padding:8px 10px;font-size:13px;vertical-align:top;background:{bg}"'
         rows += (
-            f'<tr>'
-            f'<td {td}>{f.get("page_number","")}</td>'
-            f'<td {td}>{f.get("section_id","")}</td>'
+            f"<tr>"
+            f"<td {td}>{f.get('page_number', '')}</td>"
+            f"<td {td}>{f.get('section_id', '')}</td>"
             f'<td style="padding:8px 10px;vertical-align:top;background:{bg}">'
-            f'{rate_cell}</td>'
-            f'<td {td}>{f.get("trigger","—")}</td>'
-            f'<td {td}>{f.get("grace_period","—")}</td>'
-            f'<td {td}>{ext_str}</td>'
-            f'<td {td}>{f.get("ld_summary","")}</td>'
-            f'</tr>'
+            f"{rate_cell}</td>"
+            f"<td {td}>{f.get('trigger', '—')}</td>"
+            f"<td {td}>{f.get('grace_period', '—')}</td>"
+            f"<td {td}>{ext_str}</td>"
+            f"<td {td}>{f.get('ld_summary', '')}</td>"
+            f"</tr>"
         )
 
     return (
         f'<div style="overflow-x:auto">'
         f'<table style="width:100%;border-collapse:collapse;font-family:sans-serif">'
-        f'<thead>{header}</thead>'
-        f'<tbody>{rows}</tbody>'
-        f'</table></div>'
+        f"<thead>{header}</thead>"
+        f"<tbody>{rows}</tbody>"
+        f"</table></div>"
     )
 
 
@@ -369,35 +370,32 @@ def build_markup_html(results: dict) -> str:
     Returns:
         HTML string.
     """
-    markup = (
-        results.get("executive_summary", {})
-               .get("recommended_markup", [])
-    )
+    markup = results.get("executive_summary", {}).get("recommended_markup", [])
     if not markup:
         return (
             f'<div style="padding:16px;background:{_LIGHT};'
             f'border-radius:8px;color:{_SLATE};text-align:center">'
-            f'No markup recommendations generated.</div>'
+            f"No markup recommendations generated.</div>"
         )
 
     items = ""
     for m in markup:
-        num    = m.get("revision_number", "")
+        num = m.get("revision_number", "")
         action = m.get("action", "")
-        ref    = m.get("section_reference", "")
+        ref = m.get("section_reference", "")
         items += (
             f'<div style="display:flex;gap:12px;align-items:flex-start;'
-            f'padding:12px 14px;border:1px solid {_BORDER};border-radius:8px;'
+            f"padding:12px 14px;border:1px solid {_BORDER};border-radius:8px;"
             f'margin-bottom:8px;background:{_WHITE}">'
             f'<div style="background:{_NAVY};color:{_WHITE};border-radius:50%;'
-            f'width:26px;height:26px;display:flex;align-items:center;'
-            f'justify-content:center;font-size:13px;font-weight:700;'
+            f"width:26px;height:26px;display:flex;align-items:center;"
+            f"justify-content:center;font-size:13px;font-weight:700;"
             f'flex-shrink:0">{num}</div>'
-            f'<div>'
+            f"<div>"
             f'<span style="font-weight:600;color:{_NAVY}">{action}</span>'
-            f'&nbsp;&nbsp;'
+            f"&nbsp;&nbsp;"
             f'<span style="color:{_SLATE};font-size:13px">§ {ref}</span>'
-            f'</div></div>'
+            f"</div></div>"
         )
 
     return f'<div style="font-family:sans-serif">{items}</div>'
@@ -406,6 +404,7 @@ def build_markup_html(results: dict) -> str:
 # ---------------------------------------------------------------------------
 # Main analysis function
 # ---------------------------------------------------------------------------
+
 
 def analyze_contract(pdf_file, progress=gr.Progress()):
     """Run the full pipeline and return all display outputs.
@@ -428,8 +427,7 @@ def analyze_contract(pdf_file, progress=gr.Progress()):
     """
     try:
         if pdf_file is None:
-            return ("", "", "", "", "", "", None,
-                    "Please upload a PDF file first.")
+            return ("", "", "", "", "", "", None, "Please upload a PDF file first.")
 
         # Gradio 5+ returns a filepath string directly;
         # Gradio 4 returned an object with a .name attribute.
@@ -441,9 +439,7 @@ def analyze_contract(pdf_file, progress=gr.Progress()):
 
         progress(0.20, desc=PROGRESS_STEPS[1])
         fmt = contract_data["contract_meta"]["format"]
-        contract_data["sections"] = tag_all_sections(
-            contract_data["sections"], fmt
-        )
+        contract_data["sections"] = tag_all_sections(contract_data["sections"], fmt)
 
         # ── Phase 2: AI analysis — each agent updates the progress bar ───
         sections = contract_data["sections"]
@@ -467,9 +463,7 @@ def analyze_contract(pdf_file, progress=gr.Progress()):
 
         progress(0.66, desc="Reviewing insurance requirements...")
         try:
-            insurance_issues = run_insurance_agent(
-                sections, contract_data, target_ids
-            )
+            insurance_issues = run_insurance_agent(sections, contract_data, target_ids)
         except Exception as exc:
             print(f"WARNING: Insurance agent failed: {exc}")
             insurance_issues = []
@@ -483,12 +477,12 @@ def analyze_contract(pdf_file, progress=gr.Progress()):
 
         progress(0.85, desc="Generating executive summary...")
         results = {
-            "contract_format":          fmt,
+            "contract_format": fmt,
             "target_sections_analyzed": target_ids,
-            "nrs_issues":               nrs_issues,
-            "owner_issues":             owner_issues,
-            "insurance_issues":         insurance_issues,
-            "ld_findings":              ld_findings,
+            "nrs_issues": nrs_issues,
+            "owner_issues": owner_issues,
+            "insurance_issues": insurance_issues,
+            "ld_findings": ld_findings,
             "total_issues": (
                 len(nrs_issues) + len(owner_issues) + len(insurance_issues)
             ),
@@ -499,7 +493,8 @@ def analyze_contract(pdf_file, progress=gr.Progress()):
         except Exception as exc:
             print(f"WARNING: Summary generator failed: {exc}")
             results["executive_summary"] = {
-                "top_5_concerns": [], "recommended_markup": []
+                "top_5_concerns": [],
+                "recommended_markup": [],
             }
 
         # ── Phase 3: Build PDF ────────────────────────────────────────────
@@ -511,12 +506,12 @@ def analyze_contract(pdf_file, progress=gr.Progress()):
         progress(1.0, desc="Complete!")
 
         # ── Build display outputs ─────────────────────────────────────────
-        exec_html      = build_exec_summary_html(results)
-        nrs_html       = build_issues_html(results.get("nrs_issues", []),      "nrs")
-        owner_html     = build_issues_html(results.get("owner_issues", []),    "owner")
+        exec_html = build_exec_summary_html(results)
+        nrs_html = build_issues_html(results.get("nrs_issues", []), "nrs")
+        owner_html = build_issues_html(results.get("owner_issues", []), "owner")
         insurance_html = build_insurance_html(results.get("insurance_issues", []))
-        ld_html        = build_ld_html(results.get("ld_findings", []))
-        markup_html    = build_markup_html(results)
+        ld_html = build_ld_html(results.get("ld_findings", []))
+        markup_html = build_markup_html(results)
 
         status = (
             f"Analysis complete. "
@@ -525,9 +520,14 @@ def analyze_contract(pdf_file, progress=gr.Progress()):
         )
 
         return (
-            exec_html, nrs_html, owner_html,
-            insurance_html, ld_html,
-            markup_html, pdf_path, status,
+            exec_html,
+            nrs_html,
+            owner_html,
+            insurance_html,
+            ld_html,
+            markup_html,
+            pdf_path,
+            status,
         )
 
     except Exception as exc:
@@ -541,7 +541,6 @@ def analyze_contract(pdf_file, progress=gr.Progress()):
 # ---------------------------------------------------------------------------
 
 with gr.Blocks(title="Kalb Contract Review Tool") as demo:
-
     # ── Header ───────────────────────────────────────────────────────────
     gr.HTML("""
 <div style="
@@ -571,16 +570,7 @@ with gr.Blocks(title="Kalb Contract Review Tool") as demo:
         and
         <span style="color:#C9952A; font-weight:600;">AIA A201 / A101</span>
         formats.
-    </p>
-    <p style="
-        color: #8fa3c0;
-        margin: 0;
-        font-size: 0.82rem;
-        font-weight: 700;
-        line-height: 1.5;
-    ">
-        This tool is submitted as part of a technical assessment for Kalb Construction and is not a commercial or legal product of any individual or organization.
-    </p>
+
 </div>
     """)
 
@@ -651,7 +641,6 @@ with gr.Blocks(title="Kalb Contract Review Tool") as demo:
 
     # ── Results (hidden until analysis runs) ──────────────────────────────
     with gr.Column(visible=False) as results_column:
-
         gr.Markdown("## Executive Summary")
         exec_summary_output = gr.HTML()
 
@@ -659,8 +648,7 @@ with gr.Blocks(title="Kalb Contract Review Tool") as demo:
 
         with gr.Accordion("Nevada Law Issues", open=False):
             gr.Markdown(
-                "Clauses that may conflict with Nevada state law "
-                "and NRS requirements."
+                "Clauses that may conflict with Nevada state law and NRS requirements."
             )
             nrs_output = gr.HTML()
 
