@@ -6,7 +6,7 @@ Gradio web interface for the Kalb Contract Reviewer.
 Chains Phase 1 (extraction) -> Phase 2 (AI analysis) -> Phase 3 (PDF report)
 behind a clean upload-and-go UI.
 
-Run with:  python app.py
+
 """
 
 import tempfile
