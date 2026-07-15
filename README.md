@@ -29,5 +29,5 @@ Set the following environment variables as **Secrets** in the Space settings:
 
 Optional overrides (defaults shown):
 
-- `FILTER_MODEL` — default `gpt-4o`
+- `FILTER_MODEL` — default `gpt-4o-mini`
 - `ANALYSIS_MODEL` — default `gpt-4o`
